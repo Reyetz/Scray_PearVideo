@@ -109,3 +109,7 @@ MONGO_DB = 'PearVideoDB'
 
 # 视频下载保存路径(重写了FilesPipeline默认输出路径：file_dir)
 FILES_STORE = r'E:\PearVideo'
+
+# 配置aliyun的访问控制RAM
+ACCESS_KEY_ID = '<YourAccessKeyId>'
+ACCESS_KEY_SECRET = '<YourAccessKeySecret>'

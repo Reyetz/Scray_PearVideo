@@ -80,9 +80,18 @@ class SaveMongodbPipeline(object):
 
 # 下载视频文件到云OSS对象存储
 class UploadtoAliOssPipeline(object):
-    def __init__(self):
+    def __init__(self, accesskeyid, accesskeysecret):
+        self.accesskeyid = accesskeyid
+        self.accesskeysecret = accesskeysecret
         # 阿里云主账号AccessKey拥有所有API的访问权限，风险很高。强烈建议您创建并使用RAM账号进行API访问或日常运维，请登录 https://ram.console.aliyun.com 创建RAM账号。
-        self.auth = oss2.Auth('<yourAccessKeyId>', '<yourAccessKeySecret>')
+        self.auth = oss2.Auth(self.accesskeyid, self.accesskeysecret)
+
+    @classmethod
+    def from_crawler(cls, crawler):
+        return cls(
+            accesskeyid=crawler.settings.get("ACCESS_KEY_ID"),
+            accesskeysecret=crawler.settings.get("ACCESS_KEY_SECRET")
+        )
 
     def open_spider(self, spider):
         print('开始上传到Oss对象存储。。。')
